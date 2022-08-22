@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
+// import 'dotenv/config' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+require('dotenv').config();
 // Creating instance of express
 app = express();
 // Setting use.static to serve static files
@@ -35,12 +37,12 @@ app.post("/",function(req,res)
   // Converting JSON file to a JS string
   const jsonData = JSON.stringify(data);
   // Setting up API url
-  const url = "https://us10.api.mailchimp.com/3.0/lists/f71a4b9e57";
+  const url = process.env.url;
   // Setting option for API authentication
   const options = {
     method: "POST",
-    auth: "omkarae:0eaeedf54e3c6de084040937267edf40-us10"
-  }
+    auth: process.env.API_KEY
+  };
   // Requesting API on url with option and a random function
   const request = https.request(url,options,function(response){
     // If succesfull sending success.html
